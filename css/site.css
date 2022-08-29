@@ -1,7 +1,7 @@
 :root{
-    --primary-color: #1e5b8e;
-    --secondary-color: #ff993b;
-    --dark-color: #292929;
+    --primary-color: #3e3433;
+    --secondary-color: #e1b254;
+    --dark-color: #554320;
     --white-color: #dff3e4;
 }
 
@@ -31,6 +31,25 @@ nav{
 
 .checklist >li i{
     color: var(--secondary-color);
+}
+
+@media screen and (max-width: 991.33px) {
+    .border-end {
+        border: none !important;
+    }
+}
+
+.Fizz {
+    color: lightgreen;
+}
+
+.Buzz {
+    color: lightskyblue;
+}
+
+.FizzBuzz {
+    color: var(--secondary-color);
+    font-weight: bold;
 }
 
 code[class*="language-"], pre[class*="language-"] {

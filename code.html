@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>App Name: A Coding Project by Onyeka Morka</title>
+    <title>Fizz Buzz: A Coding Project by Onyeka Morka</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,7 +23,7 @@
     <!-- NAV SECTION -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/index.html"><img src="img/Icon.svg" class="d-inline-block align-text-top" width="30" height="24">APP NAME</a>
+            <a class="navbar-brand" href="/index.html"><img src="img/Icon.svg" class="d-inline-block align-text-top" width="30" height="24">Fizz Buzz</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -40,7 +40,7 @@
                         <a class="nav-link active" aria-current="page" href="/code.html">The Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="#">Git Repo</a>
+                        <a class="nav-link" target="_blank" href="https://github.com/omorka/FizzBuzz">Git Repo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" target="_blank" href="https://omorka.netlify.app/">About Me</a>
@@ -52,23 +52,127 @@
     <!-- MAIN SECTION -->
     <main class="flex-shrink-0">
         <div class="container py-4 px-5 mt-5">
-            <h2 class="border-1 border-bottom border-dark">The Code for APP NAME</h2>
-            <div class="row row-cols-1 row-cols-md-2">
-                <div class="col-md-8">
+            <h2 class="border-1 border-bottom border-dark">The Code for Fizz Buzz</h2>
+            <div class="row row-cols-1 row-cols-lg-2">
+                <div class="col-lg-8">
                     <pre class="line-numbers">
                         <code class="language-javascript">
-                            //Call Hello World
-                            function helloWorld()
+                            //get the values from the html document
+                            function getValues()
                             {
-                                alert("Hello World!");
+                                let fizzValue = document.getElementById("fizzValue").value;
+                                let buzzValue = document.getElementById("buzzValue").value;
+
+                                //parse values into integers
+                                fizzValue = parseInt(fizzValue);
+                                buzzValue = parseInt(buzzValue);
+
+                                //check to see if proper values were inputted
+                                if (Number.isInteger(fizzValue) && Number.isInteger(buzzValue) && fizzValue > 0 &&
+                                buzzValue > 0)
+                                {
+                                    //apply the FizzBuzz logic
+                                    let fbData = fizzBuzz(fizzValue, buzzValue);
+                                    //display data
+                                    displayData(fbData);
+                                }
+                                else
+                                {
+                                    //send error message
+                                    alert("Please enter 2 positive integers!");
+                                }
                             }
                         </code>
                     </pre>
                 </div>
-                <div class="col-md-4">
-                    <p>The Code is structured in one function.</p>
-                    <h5>Hello World</h5>
-                    <p>Hello World is a function that displays an alert with a message of "Hello World".</p>
+                <div class="col-lg-4">
+                    <h5>GetValues() Method</h5>
+                    <p>The <strong>getValues()</strong> method gets the input from the HTML 
+                    and stores it in javascript values that are then checked to confirm they 
+                    are integers before being passed into the next method.</p>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-lg-2">
+                <div class="col-lg-8">
+                    <pre class="line-numbers">
+                        <code class="language-javascript">
+                            //apply FizzBuzz logic
+                            function fizzBuzz(fizzValue, buzzValue)
+                            {
+                                let returnArray = [];
+
+                                //iterate from 1 to 100
+                                for(let i = 1; i <= 100; i++)
+                                {
+                                    //check if fizzValue or buzzValue is a multiple of i and return the right word if they are
+                                    //return i if both are not multiples
+                                    let value = ((i % fizzValue == 0 ? "Fizz" : "") + (i % buzzValue == 0 ? "Buzz" : "") || i);
+                                    returnArray.push(value);
+                                }
+
+                                return returnArray;
+                            }
+                        </code>
+                    </pre>
+                </div>
+                <div class="col-lg-4">
+                    <h5>FizzBuzz() Method</h5>
+                    <p>The <strong>fizzBuzz()</strong> method takes in 2 parameters 
+                    which are the <strong>fizzValue</strong> and <strong>buzzValue</strong> 
+                    from the <strong>getValues()</strong> method and iterates from 1 to 100 and checks if each number is a multiple of the <strong>fizzValue</strong> or <strong>buzzValue</strong> and pushes the corresponding word onto a returnArray. If neither are multiples, it pushes the number to the array.</p>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-lg-2">
+                <div class="col-lg-8">
+                    <pre class="line-numbers">
+                        <code class="language-javascript">
+                            function displayData(fbData)
+                            {
+                                //get the tbody from html document
+                                let tableBody = document.getElementById("results");
+
+                                //get the template
+                                let templateRow = document.getElementById("fbTemplate");
+
+                                //clear table rows
+                                tableBody.innerHTML = "";
+
+                                //loop over fbData and increment by the index by 5 after every iteration
+                                for (let i = 0; i < fbData.length; i += 5)
+                                {
+                                    //import template content
+                                    let tableRow = document.importNode(templateRow.content, true);
+
+                                    //get all tds in the template element
+                                    let rowCols = tableRow.querySelectorAll("td");
+                                    
+                                    //add the class for styling and the text to the table data
+                                    rowCols[0].classList.add(fbData[i]);
+                                    rowCols[0].textContent = fbData[i];
+
+                                    rowCols[1].classList.add(fbData[i+1]);
+                                    rowCols[1].textContent = fbData[i+1];
+
+                                    rowCols[2].classList.add(fbData[i+2]);
+                                    rowCols[2].textContent = fbData[i+2];
+
+                                    rowCols[3].classList.add(fbData[i+3]);
+                                    rowCols[3].textContent = fbData[i+3];
+
+                                    rowCols[4].classList.add(fbData[i+4]);
+                                    rowCols[4].textContent = fbData[i+4];
+
+                                    //add the table data to the table body
+                                    tableBody.appendChild(tableRow);
+                                }
+                            }
+                        </code>
+                    </pre>
+                </div>
+                <div class="col-lg-4">
+                    <h5>DisplayData() Method</h5>
+                    <p>The <strong>displayData()</strong> method takes in the array 
+                    from the completion of the<strong>fizzBuzz</strong> method and gets the table body and the template from the document and adds the <strong>fbData</strong> array to the table by using a FOR loop that increments by 5 and adding 5 values at a time to a copy of the template and pushes that template to the table.</p>
                 </div>
             </div>
         </div>
